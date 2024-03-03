@@ -1,0 +1,47 @@
+def main():
+    # Solicitar al usuario definir su propio alfabeto Σ
+    sigma = set(input("Ingrese su alfabeto Σ separado por comas (ejemplo: A,B,1,2,?,#): ").split(','))
+
+    # Solicitar al usuario ingresar dos palabras w1 y w2
+    w1 = input("Ingrese la primera palabra (w1) utilizando el alfabeto Σ definido: ")
+    w2 = input("Ingrese la segunda palabra (w2) utilizando el alfabeto Σ definido: ")
+
+    # Calcular y mostrar las operaciones
+    print(f"a) |w1| = {len(w1)}, |w2| = {len(w2)}")
+
+    prefijos_w1 = obtener_prefijos(w1)
+    sufijos_w1 = obtener_sufijos(w1)
+    print(f"b) Prefijos de w1: {prefijos_w1}, Sufijos de w1: {sufijos_w1}")
+
+    w1w2 = w1 + w2
+    print(f"c) Concatenación de w1 y w2: {w1w2}")
+
+    print(f"d) |w1w2| = {len(w1w2)}")
+
+    n = int(input("Ingrese el valor de n para calcular w2^n (puede ser positivo, negativo o cero): "))
+    w2n = calcular_w2n(w2, n)
+    print(f"e) w2^{n}: {w2n}")
+
+    N = input("Ingrese el valor de N para evaluar |w1|N: ")
+    resultado_w1N = evaluar_w1N(len(w1), N)
+    print(f"f) |w1|{N} = {resultado_w1N}")
+
+def obtener_prefijos(cadena):
+    prefijos = [cadena[:i] for i in range(len(cadena) + 1)]
+    return prefijos[1:]  # Excluir cadena vacía como prefijo
+
+def obtener_sufijos(cadena):
+    sufijos = [cadena[i:] for i in range(len(cadena) + 1)]
+    return sufijos[:-1]  # Excluir cadena vacía como sufijo
+
+def calcular_w2n(w2, n):
+    return w2**n if n >= 0 else w2[:n]
+
+def evaluar_w1N(len_w1, N):
+    try:
+        return len_w1 * int(N)
+    except ValueError:
+        return "No se puede evaluar |w1|N. Asegúrese de ingresar un número válido."
+
+if __name__ == "__main__":
+    main()
